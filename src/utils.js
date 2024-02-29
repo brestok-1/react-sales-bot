@@ -1,5 +1,5 @@
 export function getReport(messages) {
-    return fetch('http://localhost:8000/report', {
+    return fetch('https://brestok-sales-bot-backend.hf.space/report', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
