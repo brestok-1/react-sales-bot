@@ -1,0 +1,18 @@
+:root {
+    --main-background-color: #f6f5f7;
+    --block-background-color: #ffffff;
+    --cell-border-color: #eaebf1;
+}
+
+body {
+    background-color: var(--main-background-color);
+}
+
+.chat-history, .chat-settings, .chat {
+    background-color: var(--block-background-color);
+    height: calc(100vh - 3rem);
+    border: 2px solid white;
+    border-radius: 40px;
+    margin: 1.5rem 0;
+    /*overflow-y: auto;*/
+}
