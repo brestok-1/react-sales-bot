@@ -135,24 +135,29 @@ function Main(props) {
     };
 
     function endCall() {
-
-        if (mediaRecorder && mediaRecorder.state !== 'inactive') {
-            mediaRecorder.stop();
-            setAudioChunks([]);
-        }
-        if (ws && ws.readyState === WebSocket.OPEN) {
-            ws.close();
-            setWs(null);
-            getReport(props.dialogue)
-                .then(report => {
-                    console.log(report)
-                    setReport(report['response'])
-                })
-                .catch(error => {
-                    console.log(error)
-                })
-        }
+    if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+        mediaRecorder.stop();
+        setAudioChunks([]);
     }
+    if (ws && ws.readyState === WebSocket.OPEN) {
+        const isConfirmed = window.confirm("Do you want to get a report for the current dialogue?");
+        if (!isConfirmed) {
+            return;
+        }
+
+        ws.close();
+        setWs(null);
+        getReport(props.dialogue)
+            .then(report => {
+                console.log(report);
+                setReport(report['response']);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+}
+
 
 
     return (
