@@ -45,7 +45,7 @@ function Main(props) {
             alert('The following settings have not been set:\n' + emptyFiels)
             window.location.reload()
         }
-        const socket = new WebSocket('ws://brestok-sales-bot-backend.hf.space/ws/1');
+        const socket = new WebSocket('wss://brestok-sales-bot-backend.hf.space/ws/1');
         props.clearDialogue()
         setReport('')
         socket.onopen = () => startRecording();
