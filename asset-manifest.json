@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/react-sales-bot/static/css/main.79559c5e.css",
+    "main.js": "/react-sales-bot/static/js/main.52dc6bca.js",
+    "index.html": "/react-sales-bot/index.html",
+    "main.79559c5e.css.map": "/react-sales-bot/static/css/main.79559c5e.css.map",
+    "main.52dc6bca.js.map": "/react-sales-bot/static/js/main.52dc6bca.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.79559c5e.css",
+    "static/js/main.52dc6bca.js"
+  ]
+}
