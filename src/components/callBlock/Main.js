@@ -2,7 +2,7 @@ import GPTReport from "./GPTReport";
 import CallButtons from "./CallButtons";
 import './Main.css'
 import {useState} from "react";
-import {getReport} from "../../utils";
+import {generateUUID, getReport} from "../../utils";
 
 function Main(props) {
     const [mediaRecorder, setMediaRecorder] = useState(null);
@@ -45,7 +45,8 @@ function Main(props) {
             alert('The following settings have not been set:\n' + emptyFiels)
             window.location.reload()
         }
-        const socket = new WebSocket('wss://brestok-sales-bot-backend.hf.space/ws/1');
+        const uuid = generateUUID()
+        const socket = new WebSocket(`wss://brestok-sales-bot-backend.hf.space/ws/${uuid}`);
         props.clearDialogue()
         setReport('')
         socket.onopen = () => startRecording();
@@ -156,7 +157,9 @@ function Main(props) {
                 })
                 .catch(error => {
                     console.log(error);
-                    setReport(error)
+                    console.log(report)
+                    setIsLoading(false)
+                    setReport('NET ERROR')
                 });
         }
     }

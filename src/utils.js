@@ -17,3 +17,15 @@ export function getReport(messages) {
         throw error;
     });
 }
+
+export function generateUUID() {
+    const arr = new Uint8Array(16);
+    window.crypto.getRandomValues(arr);
+
+    arr[6] = (arr[6] & 0x0f) | 0x40; // Версия 4
+    arr[8] = (arr[8] & 0x3f) | 0x80; // Вариант 1 0xx
+
+    return ([...arr].map((b, i) =>
+        (i === 4 || i === 6 || i === 8 || i === 10 ? "-" : "") + b.toString(16).padStart(2, "0")
+    ).join(""));
+}
