@@ -10,7 +10,7 @@ function Main(props) {
     const [audioChunks, setAudioChunks] = useState([]);
     const [ws, setWs] = useState(null);
     const [report, setReport] = useState('')
-
+    const [isLoading, setIsLoading] = useState(false)
 
     function startCall() {
         let emptyFiels = ''
@@ -135,29 +135,31 @@ function Main(props) {
     };
 
     function endCall() {
-    if (mediaRecorder && mediaRecorder.state !== 'inactive') {
-        mediaRecorder.stop();
-        setAudioChunks([]);
-    }
-    if (ws && ws.readyState === WebSocket.OPEN) {
-        const isConfirmed = window.confirm("Do you want to get a report for the current dialogue?");
-        if (!isConfirmed) {
-            return;
+        if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+            mediaRecorder.stop();
+            setAudioChunks([]);
         }
+        if (ws && ws.readyState === WebSocket.OPEN) {
+            const isConfirmed = window.confirm("Do you want to get a report for the current dialogue?");
+            if (!isConfirmed) {
+                return;
+            }
 
-        ws.close();
-        setWs(null);
-        getReport(props.dialogue)
-            .then(report => {
-                console.log(report);
-                setReport(report['response']);
-            })
-            .catch(error => {
-                console.log(error);
-            });
+            ws.close();
+            setWs(null);
+            setIsLoading(true)
+            getReport(props.dialogue)
+                .then(report => {
+                    console.log(report);
+                    setIsLoading(false)
+                    setReport(report['response']);
+                })
+                .catch(error => {
+                    console.log(error);
+                    setReport(error)
+                });
+        }
     }
-}
-
 
 
     return (
@@ -166,7 +168,7 @@ function Main(props) {
                 <div className="fs-3 text-center mt-3">
                     Sales Bot
                 </div>
-                <GPTReport report={report}/>
+                <GPTReport report={report} isLoading={isLoading}/>
                 <CallButtons onCallStarting={startCall} onStopTalking={stopAndSend} onEndCalling={endCall}/>
             </div>
         </div>
