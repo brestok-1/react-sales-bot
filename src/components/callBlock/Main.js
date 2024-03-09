@@ -55,6 +55,18 @@ function Main(props) {
             alert('Something was wrong. Try again later.')
             window.location.reload()
         };
+        socket.send(JSON.stringify({
+            'target_customer': props.targetCustomer,
+            'objections': props.objections,
+            'personality_type': props.presonalityType,
+            'pitch_script': props.pitchScript,
+            'goal': props.goal,
+            'reason': props.reason,
+            'last_contact': props.lastContact,
+            'product_details': props.productDetail,
+            'company_description': props.companyDescription,
+            'personal_background': props.personalBackground
+        }))
         socket.onmessage = (event) => playResponse(event.data);
         setWs(socket);
     }
@@ -92,16 +104,6 @@ function Main(props) {
                     let base64String = btoa(String.fromCharCode.apply(null, new Uint8Array(reader.result)));
                     const dataWS = {
                         'audio': base64String,
-                        'target_customer': props.targetCustomer,
-                        // 'objections': props.objections,
-                        'personality_type': props.presonalityType,
-                        // 'pitch_script': props.pitchScript,
-                        // 'goal': props.goal,
-                        // 'reason': props.reason,
-                        // 'last_contact': props.lastContact,
-                        // 'product_details': props.productDetail,
-                        // 'company_description': props.companyDescription,
-                        // 'personal_background': props.personalBackground
                     }
                     console.log(dataWS)
                     ws.send(JSON.stringify(dataWS));
