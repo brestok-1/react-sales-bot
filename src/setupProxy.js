@@ -4,7 +4,7 @@ module.exports = function (app) {
     app.use(
         '/api',
         createProxyMiddleware({
-            target: 'http://https://brestok-sales-bot-backend.hf.space',
+            target: 'http://brestok-sales-bot-backend.hf.space',
             changeOrigin: true,
             pathRewrite: {
                 "^/api": "",

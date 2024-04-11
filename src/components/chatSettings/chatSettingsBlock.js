@@ -141,7 +141,7 @@ function ChatSettingsBlock(props) {
                                 onChange={(event) => {
                                     props.onSetLastContact(event.target.value)
                                 }}>
-                            <option value={'Never'}>Never</option>
+                            <option value='Never'>Never</option>
                             <option value="Same day">Same day</option>
                             <option value="2-10 days ago">2-10 days ago</option>
                             <option value="11-30 days ago">11-30 days ago</option>

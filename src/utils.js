@@ -1,10 +1,10 @@
-export function getReport(messages) {
+export function getReport(messages, settings) {
     return fetch('https://brestok-sales-bot-backend.hf.space/report', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({'history': messages})
+        body: JSON.stringify({'history': messages, settings: settings})
     })
     .then(response => {
         if (!response.ok) {
@@ -13,7 +13,6 @@ export function getReport(messages) {
         return response.json();
     })
     .catch(error => {
-        console.error('Error:', error);
         throw error;
     });
 }

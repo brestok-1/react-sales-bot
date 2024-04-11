@@ -11,7 +11,7 @@ function App() {
     const [pitchScript, setPitchScript] = useState(null);
     const [goal, setGoal] = useState(null);
     const [reason, setReason] = useState(null);
-    const [lastContact, setLastContact] = useState(null);
+    const [lastContact, setLastContact] = useState('passive');
     const [productDetail, setProductDetail] = useState(null);
     const [companyDescription, setCompanyDescription] = useState(null);
     const [targetCustomer, setTargetCustomer] = useState(null);
@@ -52,7 +52,7 @@ function App() {
                       clearDialogue={() => {
                           setDialogue([])
                       }}
-                      presonalityType={personalityType}
+                      personalityType={personalityType}
                       objections={objections}
                       targetCustomer={targetCustomer}
                       pitchScript={pitchScript}

@@ -26,12 +26,12 @@ function Main(props) {
         // if (!props.reason || props.reason === '0') {
         //     emptyFiels += 'Reason for Contacting the prospect\n'
         // }
-        if (!props.targetCustomer) {
-            emptyFiels += 'Target audience\n'
-        }
-        if (!props.presonalityType || props.presonalityType === '0') {
-            emptyFiels += 'Personality type\n' || props.reason === '0'
-        }
+        // if (!props.targetCustomer) {
+        //     emptyFiels += 'Target audience\n'
+        // }
+        // if (!props.presonalityType || props.presonalityType === '0') {
+        //     emptyFiels += 'Personality type\n' || props.reason === '0'
+        // }
         // if (!props.productDetail) {
         //     emptyFiels += 'Product details\n'
         // }
@@ -41,32 +41,35 @@ function Main(props) {
         // if (!props.personalBackground) {
         //     emptyFiels += 'Personal background\n'
         // }
-        if (emptyFiels.length > 0) {
-            alert('The following settings have not been set:\n' + emptyFiels)
-            window.location.reload()
-        }
+        // if (emptyFiels.length > 0) {
+        //     alert('The following settings have not been set:\n' + emptyFiels)
+        //     window.location.reload()
+        // }
         const uuid = generateUUID()
         const socket = new WebSocket(`wss://brestok-sales-bot-backend.hf.space/ws/${uuid}`);
         props.clearDialogue()
         setReport('')
-        socket.onopen = () => startRecording();
+        socket.onopen = () => {
+            socket.send(JSON.stringify({
+                'target_customer': props.targetCustomer,
+                'objections': props.objections,
+                'personality_type': props.personalityType,
+                'pitch_script': props.pitchScript,
+                'goal': props.goal,
+                'reason': props.reason,
+                'last_contact': props.lastContact,
+                'product_details': props.productDetail,
+                'company_description': props.companyDescription,
+                'personal_background': props.personalBackground
+            }));
+            startRecording();
+        };
+
         socket.onclose = (event) => console.log('WebSocket disconnected', event);
         socket.onerror = (error) => {
             alert('Something was wrong. Try again later.')
             window.location.reload()
         };
-        socket.send(JSON.stringify({
-            'target_customer': props.targetCustomer,
-            'objections': props.objections,
-            'personality_type': props.presonalityType,
-            'pitch_script': props.pitchScript,
-            'goal': props.goal,
-            'reason': props.reason,
-            'last_contact': props.lastContact,
-            'product_details': props.productDetail,
-            'company_description': props.companyDescription,
-            'personal_background': props.personalBackground
-        }))
         socket.onmessage = (event) => playResponse(event.data);
         setWs(socket);
     }
@@ -81,7 +84,6 @@ function Main(props) {
                         setAudioChunks(prevAudioChunks => [...prevAudioChunks, event.data]);
 
                     };
-
                 } catch (e) {
                     alert('It is not possible to send an empty message')
                 }
@@ -99,9 +101,13 @@ function Main(props) {
 
                 const audioBlob = new Blob(newAudioChunks, {type: 'audio/wav'});
                 const reader = new FileReader();
-                reader.readAsArrayBuffer(audioBlob);
+                // Используйте readAsDataURL вместо readAsArrayBuffer
+                reader.readAsDataURL(audioBlob);
                 reader.onloadend = () => {
-                    let base64String = btoa(String.fromCharCode.apply(null, new Uint8Array(reader.result)));
+                    // Полученная строка уже в формате Base64, но с префиксом data:, который нужно обработать, если необходимо
+                    let base64String = reader.result;
+                    // Удаляем префикс data:, если он не нужен
+                    base64String = base64String.split(',')[1];
                     const dataWS = {
                         'audio': base64String,
                     }
@@ -151,15 +157,16 @@ function Main(props) {
             ws.close();
             setWs(null);
             setIsLoading(true)
-            getReport(props.dialogue)
+            getReport(props.dialogue, {
+                'goal': props.goal,
+                'reason': props.reason,
+                'product_details': props.productDetail,
+            })
                 .then(report => {
-                    console.log(report);
                     setIsLoading(false)
                     setReport(report['response']);
                 })
                 .catch(error => {
-                    console.log(error);
-                    console.log(report)
                     setIsLoading(false)
                     setReport('NET ERROR')
                 });
