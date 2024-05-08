@@ -2,7 +2,7 @@ import GPTReport from "./GPTReport";
 import CallButtons from "./CallButtons";
 import './Main.css'
 import {useState} from "react";
-import {generateUUID, getReport} from "../../utils";
+import {generateUUID, getReport, showMessage} from "../../utils";
 
 function Main(props) {
     const [mediaRecorder, setMediaRecorder] = useState(null);
@@ -13,68 +13,71 @@ function Main(props) {
     const [isLoading, setIsLoading] = useState(false)
 
     function startCall() {
-        let emptyFiels = ''
-        // if (props.objections[0].value === '') {
-        //     emptyFiels += 'Objections\n'
-        // }
-        // if (!props.pitchScript || props.pitchScript === '0') {
-        //     emptyFiels += 'Sales Pitch Script\n'
-        // }
-        // if (!props.goal) {
-        //     emptyFiels += 'Goal of the call\n'
-        // }
-        // if (!props.reason || props.reason === '0') {
-        //     emptyFiels += 'Reason for Contacting the prospect\n'
-        // }
-        // if (!props.targetCustomer) {
-        //     emptyFiels += 'Target audience\n'
-        // }
-        // if (!props.presonalityType || props.presonalityType === '0') {
-        //     emptyFiels += 'Personality type\n' || props.reason === '0'
-        // }
-        // if (!props.productDetail) {
-        //     emptyFiels += 'Product details\n'
-        // }
-        // if (!props.companyDescription) {
-        //     emptyFiels += 'Company description\n'
-        // }
-        // if (!props.personalBackground) {
-        //     emptyFiels += 'Personal background\n'
-        // }
-        // if (emptyFiels.length > 0) {
-        //     alert('The following settings have not been set:\n' + emptyFiels)
-        //     window.location.reload()
-        // }
         const uuid = generateUUID()
         const socket = new WebSocket(`wss://brestok-sales-bot-backend.hf.space/ws/${uuid}`);
+
         props.clearDialogue()
         setReport('')
-        socket.onopen = () => {
-            socket.send(JSON.stringify({
-                'target_customer': props.targetCustomer,
-                'objections': props.objections,
-                'personality_type': props.personalityType,
-                'pitch_script': props.pitchScript,
-                'goal': props.goal,
-                'reason': props.reason,
-                'last_contact': props.lastContact,
-                'product_details': props.productDetail,
-                'company_description': props.companyDescription,
-                'personal_background': props.personalBackground
-            }));
-            startRecording();
-        };
 
-        socket.onclose = (event) => console.log('WebSocket disconnected', event);
-        socket.onerror = (error) => {
-            alert('Something was wrong. Try again later.')
+        let emptyFiels = ''
+        if (!props.targetCustomer) {
+            emptyFiels += 'Target customer\n'
+        }
+        if (!props.personalityType || props.personalityType === '0') {
+            emptyFiels += "Buyer's behaviour\n"
+        }
+        if (!props.objections[0]['value']) {
+            emptyFiels += 'Potential objections\n'
+        }
+        if (emptyFiels.length > 0) {
+            alert('The following settings have not been set:\n' + emptyFiels)
             window.location.reload()
-        };
-        socket.onmessage = (event) => playResponse(event.data);
-        setWs(socket);
+        } else {
+            socket.onopen = () => {
+                const wsData = {
+                    'target_customer': props.targetCustomer,
+                    'objections': props.objections,
+                    'personality_type': props.personalityType,
+                    'pitch_script': props.pitchScript,
+                    'goal': props.goal,
+                    'reason': props.reason,
+                    'last_contact': props.lastContact,
+                    'product_details': props.productDetail,
+                    'company_description': props.companyDescription,
+                    'personal_background': props.personalBackground
+                }
+                console.log(wsData)
+                socket.send(JSON.stringify({
+                    'type': 'set_settings',
+                    'data': wsData
+                }));
+                setIsLoading(true)
+            };
+
+            socket.onclose = (event) => console.log('WebSocket disconnected', event);
+            socket.onerror = (error) => {
+                alert('Something was wrong. Try again later.')
+                window.location.reload()
+            };
+            socket.onmessage = (event) => {
+                const message = JSON.parse(event.data)
+                const signal = message['type']
+                if (signal === 'random_persona') {
+                    setReport(message['data']['persona'])
+                    setTimeout(function () {
+                        setIsLoading(false)
+                        startRecording();
+                    }, 10000);
+                } else if (signal === 'answering') {
+                    playResponse(message['data'])
+                }
+            };
+            setWs(socket);
+        }
     }
 
     const startRecording = () => {
+        showMessage('You can speak!')
         navigator.mediaDevices.getUserMedia({audio: true})
             .then(stream => {
                 const recorder = new MediaRecorder(stream);
@@ -101,22 +104,22 @@ function Main(props) {
 
                 const audioBlob = new Blob(newAudioChunks, {type: 'audio/wav'});
                 const reader = new FileReader();
-                // Используйте readAsDataURL вместо readAsArrayBuffer
                 reader.readAsDataURL(audioBlob);
                 reader.onloadend = () => {
-                    // Полученная строка уже в формате Base64, но с префиксом data:, который нужно обработать, если необходимо
                     let base64String = reader.result;
-                    // Удаляем префикс data:, если он не нужен
                     base64String = base64String.split(',')[1];
                     const dataWS = {
-                        'audio': base64String,
+                        'type': 'asking',
+                        'data': {
+                            'audio': base64String,
+                        }
                     }
                     console.log(dataWS)
                     ws.send(JSON.stringify(dataWS));
                 };
 
                 setAudioChunks([]);
-
+                setIsLoading(true)
                 return newAudioChunks;
             });
         };
@@ -129,7 +132,7 @@ function Main(props) {
 
 
     const playResponse = (data) => {
-        data = JSON.parse(data)
+        setIsLoading(false)
         const userMessage = data['user_query']
         const botMessage = data['ai_response']
         const audioSrc = `data:audio/mp3;base64,${data['voice_response']}`;
@@ -176,6 +179,7 @@ function Main(props) {
 
     return (
         <div className="col-md-6 order-2">
+            <div id="message">Hello World</div>
             <div className="chat">
                 <div className="fs-3 text-center mt-3">
                     Sales Bot

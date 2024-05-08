@@ -128,3 +128,13 @@
         transform: rotateX(35deg) rotateY(55deg) rotateZ(360deg);
     }
 }
+
+#message {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #b3ff00;
+    padding: 10px;
+    z-index: 100;
+}

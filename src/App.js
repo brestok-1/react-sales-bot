@@ -1,6 +1,7 @@
 import Main from "./components/callBlock/Main";
 import ChatHistoryBlock from "./components/chatHistory/chatHistoryBlock";
 import ChatSettingsBlock from "./components/chatSettings/chatSettingsBlock";
+import './App.css'
 import {useState} from "react";
 
 function App() {
@@ -11,7 +12,7 @@ function App() {
     const [pitchScript, setPitchScript] = useState(null);
     const [goal, setGoal] = useState(null);
     const [reason, setReason] = useState(null);
-    const [lastContact, setLastContact] = useState('passive');
+    const [lastContact, setLastContact] = useState('never');
     const [productDetail, setProductDetail] = useState(null);
     const [companyDescription, setCompanyDescription] = useState(null);
     const [targetCustomer, setTargetCustomer] = useState(null);

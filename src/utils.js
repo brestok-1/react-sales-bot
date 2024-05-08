@@ -6,15 +6,15 @@ export function getReport(messages, settings) {
         },
         body: JSON.stringify({'history': messages, settings: settings})
     })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-    })
-    .catch(error => {
-        throw error;
-    });
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .catch(error => {
+            throw error;
+        });
 }
 
 export function generateUUID() {
@@ -27,4 +27,14 @@ export function generateUUID() {
     return ([...arr].map((b, i) =>
         (i === 4 || i === 6 || i === 8 || i === 10 ? "-" : "") + b.toString(16).padStart(2, "0")
     ).join(""));
+}
+
+export function showMessage(message_text) {
+    const message = document.getElementById('message');
+    message.innerText = message_text
+    message.style.display = 'block';
+
+    setTimeout(function () {
+        message.style.display = 'none';
+    }, 2000);
 }
