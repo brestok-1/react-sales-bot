@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/react-sales-bot/static/css/main.1ec342b3.css",
-    "main.js": "/react-sales-bot/static/js/main.6fa28bcd.js",
+    "main.css": "/react-sales-bot/static/css/main.4c79d7a5.css",
+    "main.js": "/react-sales-bot/static/js/main.9678ec75.js",
     "index.html": "/react-sales-bot/index.html",
-    "main.1ec342b3.css.map": "/react-sales-bot/static/css/main.1ec342b3.css.map",
-    "main.6fa28bcd.js.map": "/react-sales-bot/static/js/main.6fa28bcd.js.map"
+    "main.4c79d7a5.css.map": "/react-sales-bot/static/css/main.4c79d7a5.css.map",
+    "main.9678ec75.js.map": "/react-sales-bot/static/js/main.9678ec75.js.map"
   },
   "entrypoints": [
-    "static/css/main.1ec342b3.css",
-    "static/js/main.6fa28bcd.js"
+    "static/css/main.4c79d7a5.css",
+    "static/js/main.9678ec75.js"
   ]
 }
