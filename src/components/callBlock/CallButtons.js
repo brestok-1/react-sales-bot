@@ -23,7 +23,7 @@ function CallButtons(props) {
                     <div className={'calls-list'}>
                         <div className="icon icon-fill ms-2 my-2" onClick={() => {
                             props.onStopTalking()
-                        }}><i className="fs-1 fa-regular fa-circle-stop"/></div>
+                        }}><i className="fs-1 fa-solid fa-play"/></div>
                     </div>
                 </div>}
         </div>

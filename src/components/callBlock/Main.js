@@ -14,37 +14,35 @@ function Main(props) {
 
     function startCall() {
         const uuid = generateUUID()
-        const socket = new WebSocket(`wss://brestok-sales-bot-backend.hf.space/ws/${uuid}`);
+        const socket = new WebSocket(`ws://127.0.0.1:8000/ws/${uuid}`);
+        // const socket = new WebSocket(`wss://brestok-sales-bot-backend.hf.space/ws/${uuid}`);
 
         props.clearDialogue()
         setReport('')
 
         let emptyFiels = ''
-        if (!props.targetCustomer) {
-            emptyFiels += 'Target customer\n'
-        }
-        if (!props.personalityType || props.personalityType === '0') {
-            emptyFiels += "Buyer's behaviour\n"
-        }
-        if (!props.objections[0]['value']) {
-            emptyFiels += 'Potential objections\n'
-        }
         if (emptyFiels.length > 0) {
             alert('The following settings have not been set:\n' + emptyFiels)
             window.location.reload()
         } else {
             socket.onopen = () => {
                 const wsData = {
-                    'target_customer': props.targetCustomer,
-                    'objections': props.objections,
-                    'personality_type': props.personalityType,
-                    'pitch_script': props.pitchScript,
+                    'profileAge': props.profileAge,
+                    'profileGender': props.profileGender,
+                    'profileIncomeBracket': props.profileIncomeBracket,
+                    'profileOccupation': props.profileOccupation,
+                    'profileIndustry': props.profileIndustry,
+                    'profileCompany': props.profileCompany,
+                    'profileLocation': props.profileLocation,
+                    'profileInterests': props.profileInterests,
+                    'profileGoals': props.profileGoals,
+                    "profileAdditionalInformation": props.profileAdditionalInformation,
+
                     'goal': props.goal,
                     'reason': props.reason,
-                    'last_contact': props.lastContact,
-                    'product_details': props.productDetail,
-                    'company_description': props.companyDescription,
-                    'personal_background': props.personalBackground
+                    'productDetail': props.productDetail,
+                    'companyDescription': props.companyDescription,
+
                 }
                 console.log(wsData)
                 socket.send(JSON.stringify({
@@ -54,7 +52,7 @@ function Main(props) {
                 setIsLoading(true)
             };
 
-            socket.onclose = (event) => console.log('WebSocket disconnected', event);
+            socket.onclose = (event) => console.log('WebSocket disconnected');
             socket.onerror = (error) => {
                 alert('Something was wrong. Try again later.')
                 window.location.reload()
@@ -114,7 +112,6 @@ function Main(props) {
                             'audio': base64String,
                         }
                     }
-                    console.log(dataWS)
                     ws.send(JSON.stringify(dataWS));
                 };
 

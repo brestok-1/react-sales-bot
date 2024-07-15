@@ -3,89 +3,88 @@ import ChatHistoryBlock from "./components/chatHistory/chatHistoryBlock";
 import ChatSettingsBlock from "./components/chatSettings/chatSettingsBlock";
 import './App.css'
 import {useState} from "react";
+import Feedback from "./Feedback";
+import Tutorial from "./Tutorial";
 
 function App() {
+
     const [dialogue, setDialogue] = useState([])
 
-    const [personalityType, setPersonalityType] = useState(null);
-    const [objections, setObjections] = useState([{value: ""}]);
-    const [pitchScript, setPitchScript] = useState(null);
     const [goal, setGoal] = useState(null);
     const [reason, setReason] = useState(null);
-    const [lastContact, setLastContact] = useState('never');
     const [productDetail, setProductDetail] = useState(null);
     const [companyDescription, setCompanyDescription] = useState(null);
-    const [targetCustomer, setTargetCustomer] = useState(null);
-    const [personalBackground, setPersonalBackground] = useState(null);
+
+    const [profileAge, setProfileAge] = useState('18-25');
+    const [profileGender, setProfileGender] = useState('Male');
+    const [profileIncomeBracket, setProfileIncomeBracket] = useState('Low');
+    const [profileOccupation, setProfileOccupation] = useState('CEO');
+    const [profileIndustry, setProfileIndustry] = useState('Real estate');
+    const [profileCompany, setProfileCompany] = useState(null)
+    const [profileLocation, setProfileLocation] = useState('California, USA');
+    const [profileInterests, setProfileInterests] = useState(null);
+    const [profileGoals, setProfileGoals] = useState(null)
+    const [profileAdditionalInformation, setProfileAdditionalInformation] = useState(null)
+
 
     function updateDialogue(type, content) {
         setDialogue(dialogue => [...dialogue, {type: type, content: content}]);
     }
 
-    const addObjectionInput = () => {
-        if (objections.length < 5) {
-            setObjections([...objections, {value: ""}]);
-        } else {
-            alert("Cannot add more than 5 objections");
-        }
-    };
-
-    const removeObjectionInput = (index) => {
-        if (index !== 0) {
-            setObjections(objections.filter((_, i) => i !== index));
-        }
-    };
-
-    const updateObjectionValue = (index, newValue) => {
-        setObjections(objections.map((objection, i) => {
-            if (i === index) {
-                return {...objection, value: newValue};
-            }
-            return objection;
-        }));
-    };
     return (
         <div className="container-fluid">
             <div className="row">
+                <button className="btn btn-primary w-100 d-block tutorial-button" data-bs-toggle="modal"
+                    data-bs-target="#tutorialModal">
+                    Tutorial
+                </button>
+                <Tutorial/>
                 <ChatHistoryBlock dialogue={dialogue}/>
                 <Main onAddNewMessage={updateDialogue}
                       dialogue={dialogue}
                       clearDialogue={() => {
                           setDialogue([])
                       }}
-                      personalityType={personalityType}
-                      objections={objections}
-                      targetCustomer={targetCustomer}
-                      pitchScript={pitchScript}
+
                       goal={goal}
                       reason={reason}
-                      lastContact={lastContact}
                       productDetail={productDetail}
                       companyDescription={companyDescription}
-                      personalBackground={personalBackground}
 
+                      profileAge={profileAge}
+                      profileGender={profileGender}
+                      profileIncomeBracket={profileIncomeBracket}
+                      profileOccupation={profileOccupation}
+                      profileIndustry={profileIndustry}
+                      profileCompany={profileCompany}
+                      profileLocation={profileLocation}
+                      profileInterests={profileInterests}
+                      profileGoals={profileGoals}
+                      profileAdditionalInformation={profileAdditionalInformation}
                 />
 
                 <ChatSettingsBlock
-                    onSetPersonalityType={(type) => {
-                        setPersonalityType(type)
-                    }}
-                    onSetTargetAudience={(audience) => setTargetCustomer(audience)}
-                    objections={objections}
-                    onAddObjectionInput={addObjectionInput}
-                    onRemoveObjectionInput={removeObjectionInput}
-                    onUpdateObjectionValue={updateObjectionValue}
-                    onSetPitchScript={(script) => {
-                        setPitchScript(script)
-                    }}
                     onSetGoal={(goal) => setGoal(goal)}
                     onSetReason={(reason) => setReason(reason)}
-                    onSetLastContact={(lastContact) => setLastContact(lastContact)}
                     onSetProductDetail={(product) => setProductDetail(product)}
                     onSetCompanyDescription={(description) => setCompanyDescription(description)}
-                    onSetPersonalBackground={(background) => setPersonalBackground(background)}
+
+                    onSetAge={(age) => setProfileAge(age)}
+                    onSetGender={(gender) => setProfileGender(gender)}
+                    onSetIncomeBracket={(bracket) => setProfileIncomeBracket(bracket)}
+                    onSetOccupation={(occupation) => setProfileOccupation(occupation)}
+                    onSetIndustry={(industry) => setProfileIndustry(industry)}
+                    onSetCompany={(company) => setProfileCompany(company)}
+                    onSetLocation={(location) => setProfileLocation(location)}
+                    onSetInterests={(interests) => setProfileInterests(interests)}
+                    onSetGoals={(goals) => setProfileGoals(goals)}
+                    onSetAdditionalInfo={(additionalInformation) => setProfileAdditionalInformation(additionalInformation)}
                 />
             </div>
+            <button className="btn btn-primary w-100 d-block feedback-button" data-bs-toggle="modal"
+                    data-bs-target="#feedBackModal">Feedback
+            </button>
+            <Feedback/>
         </div>
     );
 }
