@@ -1,7 +1,36 @@
 import './chatSettingsBlock.css'
+import Select from "react-select";
+import {useState} from "react";
+import makeAnimated from 'react-select/animated';
+
+const animatedComponents = makeAnimated()
 
 function ChatSettingsBlock(props) {
+    const ageOptions = [
+        {value: '18-25', label: '18-25'},
+        {value: '26-35', label: '26-35'},
+        {value: '36-45', label: '35-46'},
+        {value: '46-60', label: '46-60'},
+        {value: '61-75', label: '61-75'},
+        {value: '76-90', label: '76-90'},
+    ];
 
+    const genderOptions = [
+        {value: 'Male', label: 'Male'},
+        {value: 'Female', label: 'Female'},
+    ];
+
+    const incomeBracketOptions = [
+        {value: 'Low', label: 'Low'},
+        {value: 'Middle', label: 'Middle'},
+        {value: 'High', label: 'High'},
+    ];
+
+    const handleSelectChange = (selectedOptions, setState) => {
+        const selectedValues = selectedOptions.map(option => option.value).join(', ');
+        setState(selectedValues);
+        console.log(selectedValues)
+    };
     return (
         <div className="col-md-3 px-4 order-sm-1 order-md-3">
 
@@ -17,44 +46,44 @@ function ChatSettingsBlock(props) {
                         </div>
                         <div className="modal-body px-4">
 
-                            <label htmlFor="exampleFormControlTextarea1" className={"form-label fs-5"}>Age</label>
-                            <select className="form-select" aria-label=""
-                                    onChange={(event) => {
-                                        props.onSetAge(event.target.value)
-                                    }}>
-                                <option value="18-25">18-25</option>
-                                <option value="26-35">26-35
-                                </option>
-                                <option value="36-45">35-46</option>
-                                <option value="46-60">46-60
-                                </option>
-                                <option value="61-75">61-75
-                                </option>
-                                <option value="76-90">76-90
-                                </option>
-                            </select>
+                            <label htmlFor="age" className="form-label fs-5">Age</label>
+                            <Select
+                                isMulti
+                                isSearchable={false}
+                                closeMenuOnSelect={false}
+                                name="age"
+                                options={ageOptions}
+                                defaultValue={[ageOptions[0]]}
+                                className="basic-multi-select"
+                                classNamePrefix="select"
+                                onChange={(selectedOptions) => handleSelectChange(selectedOptions, props.onSetAge)}
+                            />
 
-                            <label htmlFor="exampleFormControlTextarea1"
-                                   className={"form-label fs-5 mt-2"}>Gender</label>
-                            <select className="form-select" aria-label=""
-                                    onChange={(event) => {
-                                        props.onSetGender(event.target.value)
-                                    }}>
-                                <option value="Male">Male</option>
-                                <option value="Female">Female</option>
-                            </select>
+                            <label htmlFor="gender" className="form-label fs-5 mt-2">Gender</label>
+                            <Select
+                                isMulti
+                                isSearchable={false}
+                                closeMenuOnSelect={false}
+                                name="gender"
+                                options={genderOptions}
+                                defaultValue={[genderOptions[0]]}
+                                className="basic-multi-select"
+                                classNamePrefix="select"
+                                onChange={(selectedOptions) => handleSelectChange(selectedOptions, props.onSetGender)}
+                            />
 
-                            <label htmlFor="exampleFormControlTextarea1" className={"form-label fs-5 mt-2"}>Income
-                                Bracket
-                            </label>
-                            <select className="form-select" aria-label=""
-                                    onChange={(event) => {
-                                        props.onSetIncomeBracket(event.target.value)
-                                    }}>
-                                <option value="Low">Low</option>
-                                <option value="Middle">Middle</option>
-                                <option value="High">High</option>
-                            </select>
+                            <label htmlFor="incomeBracket" className="form-label fs-5 mt-2">Income Bracket</label>
+                            <Select
+                                isMulti
+                                closeMenuOnSelect={false}
+                                isSearchable={false}
+                                name="incomeBracket"
+                                options={incomeBracketOptions}
+                                defaultValue={[incomeBracketOptions[0]]}
+                                className="basic-multi-select"
+                                classNamePrefix="select"
+                                onChange={(selectedOptions) => handleSelectChange(selectedOptions, props.onSetIncomeBracket)}
+                            />
 
                             <label htmlFor="exampleFormControlTextarea1" className={"form-label fs-5 mt-2"}>Occupation
                             </label>
