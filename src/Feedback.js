@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/iframe-has-title */
+
 function Feedback() {
     return (
         <div className="modal fade" id="feedBackModal" tabIndex="-1" aria-labelledby="exampleModalLabel"
@@ -11,9 +13,7 @@ function Feedback() {
                     <div className="modal-body">
                         <div className="iframe-container">
                             <iframe
-                                src="https://docs.google.com/forms/d/e/1FAIpQLSfdaUzWBNNd_LM7bVTH8UVc3aDHtwsJyE056ZPJHC91yLTdDA/viewform?embedded=true"
-                                className="responsive-iframe"
-                                >
+                                src="https://docs.google.com/forms/d/e/1FAIpQLSf-U3UNqZDj9vhh0IW66o2Y_J6T2Hs1Nk5i3mlgK8F_0gfioA/viewform?usp=sharing&embedded=true" className="responsive-iframe">
                                 Loading…
                             </iframe>
                         </div>

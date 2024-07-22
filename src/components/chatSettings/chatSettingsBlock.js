@@ -104,7 +104,7 @@ function ChatSettingsBlock(props) {
                             <label htmlFor="exampleFormControlTextarea1" className={"form-label fs-5 mt-2"}>Company
                             </label>
                             <input className="form-control" type="text"
-                                   placeholder="AI Company, Lawn Care, HVAC"
+                                   placeholder="Lawn Care, HVAC, Roofing"
                                    aria-label="" onChange={(event) => {
                                 props.onSetCompany(event.target.value)
                             }}/>
@@ -167,37 +167,37 @@ function ChatSettingsBlock(props) {
 
                     <div className="mt-3 settings-card">
                         <label htmlFor="exampleFormControlTextarea1" className={"form-label fs-5"}>Product
-                            details
+                            Details
                         </label>
-                        <textarea className="form-control" id="exampleFormControlTextarea1" rows="2"
+                        <textarea className="form-control" id="exampleFormControlTextarea1" rows="2" placeholder='A coding masterclass with over 10 hours of content'
                                   onChange={(event) => {
                                       props.onSetProductDetail(event.target.value)
                                   }}></textarea>
                     </div>
 
                     <div className="mt-3 settings-card">
-                        <label htmlFor="exampleFormControlTextarea1" className={"form-label fs-5"}>Company description
+                        <label htmlFor="exampleFormControlTextarea1" className={"form-label fs-5"}>Company Description
                         </label>
-                        <textarea className="form-control" id="exampleFormControlTextarea1" rows="2"
+                        <textarea className="form-control" id="exampleFormControlTextarea1" rows="2" placeholder='A real estate mentorship program'
                                   onChange={(event) => {
                                       props.onSetCompanyDescription(event.target.value)
                                   }}></textarea>
                     </div>
 
                     <div className="mt-3 settings-card">
-                        <label htmlFor="exampleFormControlTextarea1" className={"form-label fs-5"}>Goal on the call
+                        <label htmlFor="exampleFormControlTextarea1" className={"form-label fs-5"}>Goal on the Call
                         </label>
-                        <input className="form-control" type="text" placeholder="Persuade a client to buy a property"
+                        <textarea className="form-control" id="exampleFormControlTextarea1" rows="2" placeholder="Persuade a client to buy a property"
                                aria-label="" onChange={(event) => {
                             props.onSetGoal(event.target.value)
-                        }}/>
+                        }}></textarea>
                     </div>
 
                     <div className={'settings-card mt-3'}>
                         <label htmlFor="exampleFormControlTextarea1" className={"form-label fs-5"}>Reason for Contacting
-                            the prospect
+                            the Prospect
                         </label>
-                        <textarea className="form-control" id="exampleFormControlTextarea1" rows="2"
+                        <textarea className="form-control" id="exampleFormControlTextarea1" rows="2" placeholder='Prospect received a note from us'
                                   onChange={(event) => {
                                       props.onSetReason(event.target.value)
                                   }}></textarea>

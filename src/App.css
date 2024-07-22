@@ -56,7 +56,7 @@
     border-radius: 20px 20px 0 0;
 }
 
-.tutorial-button{
+/* .tutorial-button{
     position: fixed;
     left: -35px;
     width: 100px!important;
@@ -65,7 +65,7 @@
     top: 50%;
     transform: translateY(-50%) rotate(90deg);
     border-radius: 20px 20px 0 0;
-}
+} */
 
 .responsive-iframe {
     width: calc(100% - 15px);

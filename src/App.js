@@ -4,7 +4,8 @@ import ChatSettingsBlock from "./components/chatSettings/chatSettingsBlock";
 import './App.css'
 import {useState} from "react";
 import Feedback from "./Feedback";
-import Tutorial from "./Tutorial";
+// import Tutorial from "./Tutorial";
+import AppHeader from "./components/appHeader/AppHeader";
 
 function App() {
 
@@ -34,11 +35,12 @@ function App() {
     return (
         <div className="container-fluid">
             <div className="row">
-                <button className="btn btn-primary w-100 d-block tutorial-button" data-bs-toggle="modal"
+                {/* <button className="btn btn-primary w-100 d-block tutorial-button" data-bs-toggle="modal"
                     data-bs-target="#tutorialModal">
                     Tutorial
-                </button>
-                <Tutorial/>
+                </button> */}
+                <AppHeader/>
+                {/* <Tutorial/> */}
                 <ChatHistoryBlock dialogue={dialogue}/>
                 <Main onAddNewMessage={updateDialogue}
                       dialogue={dialogue}

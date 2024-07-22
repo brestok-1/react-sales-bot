@@ -1,0 +1,63 @@
+.app_header {
+    background-color: var(--block-background-color);
+    border-radius: 40px;
+    height: 3.5rem;
+    padding: 0 2.5vmin; 
+    width: calc(100% - 3rem);
+    margin: 1.5rem auto 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+
+.header_components {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+
+.l_tabs {
+    display: flex;
+    align-items: center;
+}
+
+.r_tabs {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+} 
+
+.logo {
+    height: 100%;  
+    max-height: 8vmin;  
+    width: auto;  
+    pointer-events: none;
+}
+
+.tutorial_btn, .call_link, .pronotion_btn {
+    background-color: transparent;
+    border: none;
+    font-size: clamp(10px, 2vw, 19px); 
+    /* font-size: 3vmin; */
+    font-weight: 400;
+    cursor: pointer;
+    color: #737477;
+    transition: color 0.3s;
+}
+
+.tutorial_btn {
+    margin-left: 10vmin;
+}
+
+.call_link {
+    text-decoration: none;
+    margin-left: 2.5vmin;
+}
+
+.tutorial_btn:hover, .call_link:hover, .pronotion_btn:hover {
+   color: #000000;
+}
