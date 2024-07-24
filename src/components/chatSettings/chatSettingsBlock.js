@@ -1,9 +1,5 @@
 import './chatSettingsBlock.css'
 import Select from "react-select";
-import {useState} from "react";
-import makeAnimated from 'react-select/animated';
-
-const animatedComponents = makeAnimated()
 
 function ChatSettingsBlock(props) {
     const ageOptions = [
@@ -169,7 +165,8 @@ function ChatSettingsBlock(props) {
                         <label htmlFor="exampleFormControlTextarea1" className={"form-label fs-5"}>Product
                             Details
                         </label>
-                        <textarea className="form-control" id="exampleFormControlTextarea1" rows="2" placeholder='A coding masterclass with over 10 hours of content'
+                        <textarea className="form-control" id="exampleFormControlTextarea1" rows="2"
+                                  placeholder='A coding masterclass with over 10 hours of content'
                                   onChange={(event) => {
                                       props.onSetProductDetail(event.target.value)
                                   }}></textarea>
@@ -178,7 +175,8 @@ function ChatSettingsBlock(props) {
                     <div className="mt-3 settings-card">
                         <label htmlFor="exampleFormControlTextarea1" className={"form-label fs-5"}>Company Description
                         </label>
-                        <textarea className="form-control" id="exampleFormControlTextarea1" rows="2" placeholder='A real estate mentorship program'
+                        <textarea className="form-control" id="exampleFormControlTextarea1" rows="2"
+                                  placeholder='A real estate mentorship program'
                                   onChange={(event) => {
                                       props.onSetCompanyDescription(event.target.value)
                                   }}></textarea>
@@ -187,8 +185,9 @@ function ChatSettingsBlock(props) {
                     <div className="mt-3 settings-card">
                         <label htmlFor="exampleFormControlTextarea1" className={"form-label fs-5"}>Goal on the Call
                         </label>
-                        <textarea className="form-control" id="exampleFormControlTextarea1" rows="2" placeholder="Persuade a client to buy a property"
-                               aria-label="" onChange={(event) => {
+                        <textarea className="form-control" id="exampleFormControlTextarea1" rows="2"
+                                  placeholder="Persuade a client to buy a property"
+                                  aria-label="" onChange={(event) => {
                             props.onSetGoal(event.target.value)
                         }}></textarea>
                     </div>
@@ -197,7 +196,8 @@ function ChatSettingsBlock(props) {
                         <label htmlFor="exampleFormControlTextarea1" className={"form-label fs-5"}>Reason for Contacting
                             the Prospect
                         </label>
-                        <textarea className="form-control" id="exampleFormControlTextarea1" rows="2" placeholder='Prospect received a note from us'
+                        <textarea className="form-control" id="exampleFormControlTextarea1" rows="2"
+                                  placeholder='Prospect received a note from us'
                                   onChange={(event) => {
                                       props.onSetReason(event.target.value)
                                   }}></textarea>

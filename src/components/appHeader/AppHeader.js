@@ -1,42 +1,27 @@
-
-import Tutorial from "../../Tutorial";
 import "./AppHeader.css";
-import Promotion from "./Promotion";
 
 function AppHeader() {
     return (
         <header className="app_header">
-            <div className="header_components">
-                <img 
-                    src={`${process.env.PUBLIC_URL}/pitchlab.png`} 
-                    className="logo" 
-                    alt="Company_Logo" 
+            <div className="header_components d-flex justify-content-between">
+                <img
+                    src={`${process.env.PUBLIC_URL}/pitchlab.png`}
+                    className="logo"
+                    alt="Company_Logo"
                 />
-                <div className="l_tabs">
-                <button 
-                    className="tutorial_btn" 
-                    data-bs-toggle="modal" 
-                    data-bs-target="#tutorialModal"
-                >
-                    Tutorial
-                </button>
-                <Tutorial />
-                <a  
-                    href="https://calendly.com/pitch-lab/brainstorming-call" 
-                    className="call_link"
-                >
-                    Book a Call
-                </a>
+                <div className={"promotion text-center"}>Note: $5 to the first 100 users to give us feedback on our software ❤️
+                    <br/>
+                    Lifetime access to the software for the first 25 people to get on a Zoom.
                 </div>
-                <div className="r_tabs">
-                <button 
-                    className="pronotion_btn" 
-                    data-bs-toggle="modal" 
-                    data-bs-target="#promotionModal"
-                >
-                    Promotion
-                </button>
-                <Promotion/>
+                <div className="">
+                    <a
+                        href="https://calendly.com/pitch-lab/brainstorming-call"
+                        className="btn btn-primary"
+                        target={"_blank"}
+                        rel="noreferrer"
+                    >
+                        Book a Call
+                    </a>
                 </div>
             </div>
         </header>

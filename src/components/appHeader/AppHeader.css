@@ -38,7 +38,7 @@
     pointer-events: none;
 }
 
-.tutorial_btn, .call_link, .pronotion_btn {
+.tutorial_btn, .call_link {
     background-color: transparent;
     border: none;
     font-size: clamp(10px, 2vw, 19px); 
@@ -58,6 +58,10 @@
     margin-left: 2.5vmin;
 }
 
-.tutorial_btn:hover, .call_link:hover, .pronotion_btn:hover {
+.tutorial_btn:hover, .call_link:hover{
    color: #000000;
+}
+
+.promotion{
+    font-size: 14px;
 }

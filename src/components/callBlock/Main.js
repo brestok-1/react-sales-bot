@@ -6,8 +6,8 @@ import {generateUUID, getReport, showMessage} from "../../utils";
 
 function Main(props) {
     const [mediaRecorder, setMediaRecorder] = useState(null);
-    // eslint-disable-next-line no-unused-vars
 
+    // eslint-disable-next-line no-unused-vars
     const [audioChunks, setAudioChunks] = useState([]);
     const [ws, setWs] = useState(null);
     const [report, setReport] = useState('')
