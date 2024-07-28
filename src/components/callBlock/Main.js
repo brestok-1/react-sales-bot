@@ -15,8 +15,8 @@ function Main(props) {
 
     function startCall() {
         const uuid = generateUUID()
-        // const socket = new WebSocket(`ws://127.0.0.1:8000/ws/${uuid}`);
-        const socket = new WebSocket(`wss://brestok-sales-bot-backend.hf.space/ws/${uuid}`);
+        const socket = new WebSocket(`ws://127.0.0.1:8000/ws/${uuid}`);
+        // const socket = new WebSocket(`wss://brestok-sales-bot-backend.hf.space/ws/${uuid}`);
         props.clearDialogue()
         setReport('')
 
