@@ -3,9 +3,9 @@ import ChatHistoryBlock from "./components/chatHistory/chatHistoryBlock";
 import ChatSettingsBlock from "./components/chatSettings/chatSettingsBlock";
 import './App.css'
 import {useState} from "react";
-import Feedback from "./Feedback";
+import Feedback from "./components/appHeader/Feedback";
 import AppHeader from "./components/appHeader/AppHeader";
-import Tutorial from "./Tutorial";
+import Tutorial from "./components/appHeader/Tutorial";
 
 function App() {
 
